@@ -10,8 +10,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('table_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
+            
+            // 🔽 ini relasi ke tabel restaurant_tables
+            $table->foreignId('table_id')->nullable()->constrained('restaurant_tables')->onDelete('set null');
+            
             $table->decimal('total', 10, 2);
             $table->enum('status', ['Belum Bayar', 'Sudah Bayar'])->default('Belum Bayar');
             $table->timestamps();
